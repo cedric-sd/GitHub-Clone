@@ -43,6 +43,16 @@ const Main = (props: MainProps) => {
   )
   const [urlUserImage, setUrlUserImage] = useState('')
   const [ownerRepo, setOwnerRepo] = useState('')
+  const [topLanguages, setTopLanguages] = useState([''])
+
+  useEffect(() => {
+    if (data !== undefined) {
+      for (let i = 0; i <= 5; i++) {
+        topLanguages.push(data[i].language)
+        setTopLanguages(topLanguages)
+      }
+    }
+  }, [data, topLanguages])
 
   useEffect(() => {
     if (data !== undefined) {
@@ -99,7 +109,7 @@ const Main = (props: MainProps) => {
                   <Card body>
                     <CardTitle tag="h5">{data[0].name}</CardTitle>
                     <CardText>{data[0].description}</CardText>
-                    <ul className="listRpositoryActions">
+                    <ul className="listRepositoryActions">
                       <li>{data[0].language}</li>
                       <li>
                         {data[0].license !== null ? <FaBalanceScale /> : null}
@@ -120,7 +130,7 @@ const Main = (props: MainProps) => {
                   <Card body>
                     <CardTitle tag="h5">{data[1].name}</CardTitle>
                     <CardText>{data[1].description}</CardText>
-                    <ul className="listRpositoryActions">
+                    <ul className="listRepositoryActions">
                       <li>{data[1].language}</li>
                       <li>
                         {data[1].license !== null ? <FaBalanceScale /> : null}
@@ -141,7 +151,7 @@ const Main = (props: MainProps) => {
                   <Card body>
                     <CardTitle tag="h5">{data[3].name}</CardTitle>
                     <CardText>{data[3].description}</CardText>
-                    <ul className="listRpositoryActions">
+                    <ul className="listRepositoryActions">
                       <li>{data[3].language}</li>
                       <li>
                         {data[3].license !== null ? <FaBalanceScale /> : null}
@@ -178,17 +188,17 @@ const Main = (props: MainProps) => {
         </Row>
         <hr />
       </Container>
-      <Container>
-        {data != undefined ? (
-          data.map((repo: any) => {
-            return (
-              <Row key={repo.id}>
-                <Col cl>
+      <Container className="d-flex containerListRepos">
+        <Row className="px-3 ListRepositories">
+          {data != undefined ? (
+            data.map((repo: any) => {
+              return (
+                <Col key={repo.id}>
                   <a href="#" className="repositoryNameLink">
                     {repo.name}
                   </a>
                   <p>{repo.description}</p>
-                  <ul className="listRpositoryActions">
+                  <ul className="listRepositoryActions">
                     <li>{repo.language}</li>
                     <li>
                       {repo.license !== null ? <FaBalanceScale /> : null}
@@ -205,12 +215,28 @@ const Main = (props: MainProps) => {
                   </ul>
                   <hr />
                 </Col>
-              </Row>
-            )
-          })
-        ) : (
-          <p>Lista de repositórios vazia</p>
-        )}
+              )
+            })
+          ) : (
+            <p>Lista de repositórios vazia</p>
+          )}
+        </Row>
+        <Row>
+          <Col className="optionsRepositories">
+            <Card body>
+              <CardTitle tag="h5">Top Languages</CardTitle>
+              <ul className="d-flex">
+                {topLanguages.map((language, index) => {
+                  return (
+                    <li key={index} className="ml-2">
+                      {language}
+                    </li>
+                  )
+                })}
+              </ul>
+            </Card>
+          </Col>
+        </Row>
       </Container>
       <Footer />
     </>

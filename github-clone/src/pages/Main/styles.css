@@ -3,21 +3,24 @@
   border-radius: 15px;
   margin-top: 20px;
 }
-
 .repositoryNameLink {
   font-size: 20px;
 }
-.listRpositoryActions {
+.listRepositoryActions {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
 }
-.listRpositoryActions li {
+.listRepositoryActions li {
   margin-right: 10px;
 }
-.optionsRepos {
-  position: absolute;
+.containerListRepos {
+  flex-direction: row !important;
+}
+.ListRepositories {
   flex-direction: column;
-  width: 100px !important;
-  top: 60%;
-  right: 25%;
+}
+.optionsRepositories {
+  height: fit-content;
+  top: auto;
 }
